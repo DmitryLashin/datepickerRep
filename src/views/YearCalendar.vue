@@ -1,15 +1,15 @@
 <template>
   <div class="table">
     <h1>{{ year }}</h1>
-    <table>       
+    <table class="tableFormat">       
       <thead>
         <tr>
           <th> </th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(row, i) in months" :key="i">
-          <td v-for="(col, j) in months[i]" :key="j">
+        <tr v-for="(row, i) in months" :key="i" class="tr">
+          <td v-for="(col, j) in months[i]" :key="j" style="vertical-align: top">
             <Calendar 
               v-bind:year="year" 
               v-bind:month="months[i][j]" 
@@ -48,5 +48,10 @@ export default class FullCalendar extends Vue {
   align-items: baseline;
   table-layout: fixed;
 }
-
+.tableFormat{
+  border: 1px dotted gray;
+}
+.tr{
+  &:nth-child(even) { background-color: #EAF2D3; }
+}
 </style>
