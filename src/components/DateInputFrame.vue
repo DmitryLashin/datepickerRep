@@ -24,7 +24,7 @@ export default class DateInputFrame extends Vue {
 
   public clickEvent(e: MouseEvent): void {
     const rect = this.$el.getBoundingClientRect()
-    this.$emit('showDateInputFrame', rect.left-30, rect.bottom)
+    this.$emit('showDateInputFrame', rect.left-50, rect.bottom + 10)
     e.stopPropagation()
   } 
 

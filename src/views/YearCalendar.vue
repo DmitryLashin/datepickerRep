@@ -33,9 +33,13 @@ import { Holyday } from '@/store/holydays'
 })
 
 export default class FullCalendar extends Vue {
-  public holydays: Holyday[] = []
+  public holydays = this.getCurrentHolydays()
   public months: number[][] = [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]];
   public year: number = new Date().getFullYear()
+
+  public getCurrentHolydays(): Holyday[] {
+    return this.$store.getters.getCurrentHolydays;
+  }
 }
 </script>
 
@@ -48,7 +52,7 @@ export default class FullCalendar extends Vue {
   align-items: baseline;
   table-layout: fixed;
 }
-.tableFormat{
+.tableFormatOld{
   border: 1px dotted gray;
 }
 .tr{

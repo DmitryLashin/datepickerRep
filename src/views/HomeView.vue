@@ -8,7 +8,7 @@
     </DateInputFrame>
     <input type="text" placeholder="Описание дня" v-model="holydayTitle" class="input">
     <button v-on:click="addDate" class="input">Добавить дату</button>
-    <Wrapper v-if="showDatePicker" v-bind:left="left" v-bind:top="top">
+    <Wrapper v-if="showDatePicker" v-bind:left="left" v-bind:top="top" @hideDatePicker="hideDatePicker">
       <Calendar 
         v-bind:year="date.getFullYear()" 
         v-bind:month="date.getMonth()+1" 
@@ -26,7 +26,7 @@ import HelloWorld from '@/components/HelloWorld.vue'; // @ is an alias to /src
 import Calendar from '@/components/Calendar.vue'; // @ is an alias to /src
 import Wrapper from '@/components/Wrapper.vue'; // @ is an alias to /src
 import DateInputFrame from '@/components/DateInputFrame.vue'; // @ is an alias to /src
-import { holydays, Holyday } from '@/store/holydays'
+import { Holyday } from '@/store/holydays'
 
 @Component({
   components: {
@@ -42,12 +42,16 @@ export default class HomeView extends Vue {
   public showDatePicker = false
   public left = 0
   public top = 0
-  public holydays = holydays
+  public holydays = this.getCurrentHolydays()
   public holydayTitle = ''
 
   created()
   {
     document.addEventListener('keydown', this.hideDatePicker)
+  }
+
+  public getCurrentHolydays(): Holyday[] {
+    return this.$store.getters.getCurrentHolydays;
   }
 
   public addDate(): void {
@@ -69,7 +73,10 @@ export default class HomeView extends Vue {
         holydayTitle: this.holydayTitle
       }
     
-      this.holydays.push(holydayToAdd)
+      this.$store.dispatch('addHolyday', holydayToAdd)
+      alert('День ' + this.inputDate + ' записан в календарь событий')
+      this.inputDate = ''
+      this.holydayTitle = ''
     }
   }
 

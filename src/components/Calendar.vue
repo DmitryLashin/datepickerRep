@@ -69,7 +69,7 @@
 
       return 'none'
     }
-
+   
     public changeTooltipVisibility(setVisible: boolean): void {
       this.showTooltip = setVisible
     }
@@ -104,16 +104,18 @@
           changedYear = this.year - 1
         }
         else {
-          changedMonth = this.month + 1
+          changedMonth = this.month - 1
         }        
       }
 
       if (changedMonth === 13) {
         changedMonth = 1
+        changedYear = this.year + 1
       }
       
       if (changedMonth === 0) {
         changedMonth = 12
+        changedYear = this.year - 1
       }
 
       this.$emit('dateChanged', changedMonth, changedYear)
@@ -191,12 +193,17 @@
   
   <!-- Add "scoped" attribute to limit CSS to this component only -->
   <style scoped>
+  .calendar-month {
+    border: 1px solid #bdbdbd;
+    border-radius: 0.25rem;  
+  }
   .month-body{
     display: flex;
     flex-wrap: wrap;
     width: 14rem;
     margin: 1rem;
-    align-items: center;
+    align-items: top;
+    height: 14rem;
     .calendarDay{
       width: 2rem;
       height: 2rem;
@@ -216,8 +223,9 @@
     font-family: Avenir, Helvetica, Arial, sans-serif;  
   }
   .month-name{
-    width: 17rem;
     margin: 0.5rem;
+    display: inline-block;
+    width: 120px;  
   }
   .holydayStyle{
     color: red;
